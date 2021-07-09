@@ -1,4 +1,4 @@
-package com.ss.pma;
+package com.ss.pma.main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
