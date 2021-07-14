@@ -1,4 +1,4 @@
-package com.ss.pma.entities;
+package com.ss.pma.domain;
 
 import javax.persistence.*;
 
@@ -8,8 +8,13 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false,length = 50)
     private String name;
+
+    @Column(nullable = false, length = 20)
     private String stage;
+
+    @Column(nullable = false, length = 200)
     private String description;
 
     public Project() {
