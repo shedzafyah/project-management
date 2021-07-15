@@ -20,8 +20,8 @@ public class EmployeeController {
 
     @GetMapping("/new")
     public  String displayEmployeeForm(Model model){
-        Employee emp = new Employee();
-        model.addAttribute("employee",emp);
+        Employee employee = new Employee();
+        model.addAttribute("employee",employee);
         return "new-employee.html";
     }
 
@@ -30,4 +30,5 @@ public class EmployeeController {
        employeeRepo.save(employee);
        return "redirect:/new";
     }
+
 }
