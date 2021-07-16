@@ -17,6 +17,12 @@ public class Employee {
     @Column(nullable = false,unique = true,length = 40)
     private String email;
 
+    @ManyToOne(cascade ={CascadeType.DETACH ,CascadeType.PERSIST,CascadeType.REFRESH} ,
+    fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "project_id")
+    private Project project;
+
     public Employee() {
 
     }
@@ -57,5 +63,13 @@ public class Employee {
 
     public String getFirstname() {
         return firstname;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

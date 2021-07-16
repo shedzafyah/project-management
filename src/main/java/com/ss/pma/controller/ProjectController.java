@@ -1,37 +1,69 @@
 package com.ss.pma.controller;
 
 import com.ss.pma.domain.*;
+import com.ss.pma.dto.*;
 import com.ss.pma.repository.*;
+import com.ss.pma.service.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.*;
+
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
 
-    private ProjectRepository projectRepo;
+   private ProjectService projectService;
+   private EmployeeService employeeService;
 
-    @Autowired
-    public ProjectController(ProjectRepository projectRepo) {
-        this.projectRepo = projectRepo;
+   @Autowired
+   private EmployeeRepository employeeRepository;
+
+   @Autowired
+    public ProjectController(ProjectService projectService, EmployeeService employeeService) {
+        this.projectService = projectService;
+        this.employeeService = employeeService;
     }
 
     @RequestMapping("/new")
     public String displayProjectForm(Model model){
         Project aProject = new Project();
+        List<Employee> employees = employeeService.listAll();
+        model.addAttribute("allEmployees",employees);
         model.addAttribute("project",aProject);
-        return "new-project.html";
+        return "projects/new-project.html";
     }
 
     @PostMapping("/save")
-    public String createProject(Project project,Model model){
-        //save to database
-        projectRepo.save(project);
-        return "redirect:/new";
+    public String createProject(Project project,@RequestParam List<Long> employees, Model model){
+        projectService.save(project);
+        Iterable<Employee> chosenEmployees=employeeRepository.findAllById(employees);
+        for (Employee emp: chosenEmployees) {
+            emp.setProject(project);
+            employeeRepository.save(emp);
+        }
+        return "redirect:/project/new";
+    }
+
+    @GetMapping("/all")
+    public String listAll(Model model){
+        List<Project> projects = projectService.listAllProjects();
+        model.addAttribute("project",projects);
+        return "projects/list-projects.html";
 
     }
+
+    @DeleteMapping("/")
+    public String delete(@PathVariable("id") Long id,Model model){
+        Optional<Project> project = projectService.findById(id);
+        projectService.delete(project);
+        return "";
+
+    }
+
+
 
 
 

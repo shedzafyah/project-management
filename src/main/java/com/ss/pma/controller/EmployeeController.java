@@ -2,33 +2,51 @@ package com.ss.pma.controller;
 
 import com.ss.pma.domain.*;
 import com.ss.pma.repository.*;
+import com.ss.pma.service.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.*;
+
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    private final EmployeeRepository employeeRepo;
+    private EmployeeService employeeService;
 
     @Autowired
-    public EmployeeController(EmployeeRepository employeeRepo) {
-        this.employeeRepo = employeeRepo;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping("/new")
     public  String displayEmployeeForm(Model model){
         Employee employee = new Employee();
         model.addAttribute("employee",employee);
-        return "new-employee.html";
+        return "employees/new-employee.html";
     }
 
     @PostMapping("/save")
     public String createEmployee(Employee employee, Model model){
-       employeeRepo.save(employee);
-       return "redirect:/new";
+        employeeService.save(employee);
+        return "redirect:/employee/new";
     }
+
+    @GetMapping("/all")
+    public String listAllEmployee(Employee employee, Model model){
+        List<Employee> employees = employeeService.listAll();
+        model.addAttribute("employee",employees);
+        return "employees/list-employees.html";
+    }
+
+    @GetMapping("delete")
+   public String delete(@PathVariable("id") Long id,Model model){
+       Employee employee = employeeService.findById(id);
+       employeeService.delete(employee);
+       return "redirect:/employee/all";
+   }
+
 
 }

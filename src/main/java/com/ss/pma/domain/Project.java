@@ -1,6 +1,7 @@
 package com.ss.pma.domain;
 
 import javax.persistence.*;
+import java.util.*;
 
 @Entity
 public class Project {
@@ -16,6 +17,9 @@ public class Project {
 
     @Column(nullable = false, length = 200)
     private String description;
+
+    @OneToMany(mappedBy = "project")
+    private List<Employee> employees;
 
     public Project() {
 
@@ -47,5 +51,13 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }
