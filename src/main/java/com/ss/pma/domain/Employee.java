@@ -1,6 +1,7 @@
 package com.ss.pma.domain;
 
 import javax.persistence.*;
+import java.util.*;
 
 @Entity
 public class Employee {
@@ -17,11 +18,13 @@ public class Employee {
     @Column(nullable = false,unique = true,length = 40)
     private String email;
 
-    @ManyToOne(cascade ={CascadeType.DETACH ,CascadeType.PERSIST,CascadeType.REFRESH} ,
-    fetch = FetchType.LAZY
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
+            fetch = FetchType.LAZY)
+    @JoinTable(name="project_employee",
+            joinColumns=@JoinColumn(name="employee_id"),
+            inverseJoinColumns= @JoinColumn(name="project_id")
     )
-    @JoinColumn(name = "project_id")
-    private Project project;
+    private List<Project> project;
 
     public Employee() {
 
@@ -65,11 +68,10 @@ public class Employee {
         return firstname;
     }
 
-    public Project getProject() {
+    public List<Project> getProject() {
         return project;
     }
-
-    public void setProject(Project project) {
+    public void setProject(List<Project> project) {
         this.project = project;
     }
 }

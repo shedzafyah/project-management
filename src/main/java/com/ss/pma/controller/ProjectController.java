@@ -39,11 +39,6 @@ public class ProjectController {
     @PostMapping("/save")
     public String createProject(Project project,@RequestParam List<Long> employees, Model model){
         projectService.save(project);
-        Iterable<Employee> chosenEmployees=employeeRepository.findAllById(employees);
-        for (Employee emp: chosenEmployees) {
-            emp.setProject(project);
-            employeeRepository.save(emp);
-        }
         return "redirect:/project/new";
     }
 
