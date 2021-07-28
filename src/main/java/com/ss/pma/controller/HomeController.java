@@ -19,6 +19,7 @@ public class HomeController {
    @Value("${version}")
    private String ver;
 
+
    @Autowired
     public HomeController(EmployeeService employeeService, ProjectService projectService) {
         this.employeeService = employeeService;
