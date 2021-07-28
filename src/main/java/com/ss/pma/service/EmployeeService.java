@@ -1,10 +1,10 @@
 package com.ss.pma.service;
 
 import com.ss.pma.domain.*;
+import com.ss.pma.dto.*;
 import com.ss.pma.repository.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -17,8 +17,12 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public List<Employee> listAll(){
+    public List<Employee> listAllEmployees(){
         return employeeRepository.findAll();
+    }
+
+    public List<EmployeeProjectDTO> getEmployeeProjects(){
+        return employeeRepository.employeeProjects();
     }
 
     public void save(Employee employee){
@@ -29,8 +33,7 @@ public class EmployeeService {
         return employeeRepository.getById(id);
     }
 
-
-    public void delete(Employee employee){
-        employeeRepository.delete(employee);
+    public void delete(Long id){
+        employeeRepository.deleteById(id);
     }
 }

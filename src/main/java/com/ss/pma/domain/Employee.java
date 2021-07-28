@@ -18,15 +18,13 @@ public class Employee {
     @Column(nullable = false,unique = true,length = 40)
     private String email;
 
-    @ManyToMany( mappedBy = "employees", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
             fetch = FetchType.LAZY)
-   /*
+
     @JoinTable(name="project_employee",
             joinColumns=@JoinColumn(name="employee_id"),
             inverseJoinColumns= @JoinColumn(name="project_id")
     )
-
-    */
     private List<Project> project;
 
     public Employee() {

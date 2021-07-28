@@ -30,7 +30,7 @@ public class ProjectController {
     @RequestMapping("/new")
     public String displayProjectForm(Model model){
         Project aProject = new Project();
-        List<Employee> employees = employeeService.listAll();
+        List<Employee> employees = employeeService.listAllEmployees();
         model.addAttribute("allEmployees",employees);
         model.addAttribute("project",aProject);
         return "projects/new-project.html";
@@ -42,7 +42,7 @@ public class ProjectController {
         return "redirect:/project/new";
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public String listAll(Model model){
         List<Project> projects = projectService.listAllProjects();
         model.addAttribute("project",projects);
