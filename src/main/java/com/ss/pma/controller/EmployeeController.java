@@ -34,19 +34,18 @@ public class EmployeeController {
         return "redirect:/employee/new";
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public String listAllEmployee(Employee employee, Model model){
-        List<Employee> employees = employeeService.listAll();
+        List<Employee> employees = employeeService.listAllEmployees();
         model.addAttribute("employee",employees);
         return "employees/list-employees.html";
     }
 
-    @GetMapping("delete")
-   public String delete(@PathVariable("id") Long id,Model model){
-       Employee employee = employeeService.findById(id);
-       employeeService.delete(employee);
-       return "redirect:/employee/all";
+    @GetMapping("/delete/{id}")
+   public String delete(@PathVariable Long id,Model model){
+       //Employee employee = employeeService.findById(id);
+       employeeService.delete(id);
+       return "redirect:/employee";
    }
-
 
 }

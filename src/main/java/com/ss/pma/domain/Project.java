@@ -1,12 +1,13 @@
 package com.ss.pma.domain;
 
 import javax.persistence.*;
+import java.time.*;
 import java.util.*;
 
 @Entity
 public class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false,length = 50)
@@ -17,6 +18,8 @@ public class Project {
 
     @Column(nullable = false, length = 200)
     private String description;
+
+   // private LocalDate startDate;
 
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
@@ -29,6 +32,12 @@ public class Project {
 
     public Project() {
 
+    }
+
+    public Project(String name, String stage, String description) {
+        this.name = name;
+        this.stage = stage;
+        this.description = description;
     }
 
     public Long getId() {

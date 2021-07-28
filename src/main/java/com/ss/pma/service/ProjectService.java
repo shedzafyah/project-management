@@ -34,10 +34,5 @@ public class ProjectService {
         delete(project);
     }
 
-    private ProjectDTO convertToProjectDTO(Project project){
-        ProjectDTO projectDTO = new ProjectDTO();
-        projectDTO.setName(project.getName());
-        projectDTO.setStage(project.getStage());
-        return projectDTO;
-    }
+
 }

@@ -1,7 +1,7 @@
 package com.ss.pma.controller;
 
 import com.ss.pma.domain.*;
-import com.ss.pma.repository.*;
+import com.ss.pma.service.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
@@ -13,23 +13,36 @@ import java.util.*;
 @RequestMapping("/home")
 public class HomeController {
 
-    private ProjectRepository projectRepository;
-    private EmployeeRepository employeeRepository;
+   private EmployeeService employeeService;
+   private ProjectService projectService;
 
-    @Autowired
-    public HomeController(ProjectRepository projectRepository, EmployeeRepository employeeRepository) {
-        this.projectRepository = projectRepository;
-        this.employeeRepository = employeeRepository;
+   @Value("${version}")
+   private String ver;
+
+   @Autowired
+    public HomeController(EmployeeService employeeService, ProjectService projectService) {
+        this.employeeService = employeeService;
+        this.projectService = projectService;
     }
 
     @GetMapping
     public String display(Model model){
-        List<Project> projects = projectRepository.findAll();
+        List<Project> projects = projectService.listAllProjects();
         model.addAttribute("projectList",projects);
 
-        List<Employee> employees = employeeRepository.findAll();
+        model.addAttribute("versionNumber",ver);
+
+        /*
+        List<EmployeeProject> employeesProjectCount = employeeService.getEmployeeProjects();
+        model.addAttribute("employeeProjectListCount",employeesProjectCount);
+         */
+
+        List<Employee> employees = employeeService.listAllEmployees();
         model.addAttribute("employeeList",employees);
+
         return "main/home.html";
+
+
     }
 
 }
