@@ -3,6 +3,7 @@ package com.ss.pma.security;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.*;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -19,8 +20,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .roles("USER")
                 .password("qwerty")
                 .and()
-                .withUser("admin")
-                .roles("USER")
+                .withUser("shelton")
+                .roles("ADMIN")
                 .password("12345");
         ;
     }
@@ -28,5 +29,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder getPasswordEncoder(){
         return NoOpPasswordEncoder.getInstance();
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception{
+        http.authorizeRequests()
+                .antMatchers("/project/new").hasRole("ADMIN")
+                .antMatchers("/").authenticated()
+                .and().formLogin();
     }
 }
