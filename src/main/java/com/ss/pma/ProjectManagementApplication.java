@@ -10,6 +10,7 @@ import org.springframework.context.annotation.*;
 import java.util.*;
 
 @SpringBootApplication
+
 public class ProjectManagementApplication {
 
     @Autowired
@@ -22,7 +23,7 @@ public class ProjectManagementApplication {
         SpringApplication.run(ProjectManagementApplication.class, args);
     }
 
-
+/*
     @Bean
     CommandLineRunner runner(){
         return args -> {
@@ -89,5 +90,7 @@ public class ProjectManagementApplication {
         };
     }
 
+
+ */
 
 }
