@@ -47,14 +47,14 @@ public class EmployeeController {
        return "redirect:/employee";
    }
 
-   @PostMapping("/update")
+   @GetMapping("/update")
    public String displayEmployeeUpdateForm(@RequestParam("id") Long theId, Model model) {
 
        Employee employees = employeeService.findById(theId);
 
        model.addAttribute("employee", employees);
 
-       return "employees/new-employee";
+       return "employees/update-employee.html";
    }
 
 }
