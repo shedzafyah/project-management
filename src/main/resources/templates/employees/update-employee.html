@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+
+<body>
+<nav th:replace="layouts :: navbar"></nav>
+<div class="container">
+    <form action="/employee/" th:object="${employee}" method="PUT">
+        <input type="text" th:field="*{id}" readonly="readonly" />
+        <input type="text" placeholder="firstname" th:field="*{firstname}">
+        <input type="text" placeholder="lastname" th:field="*{lastname}">
+        <input type="email" placeholder="email" th:field="*{email}">
+        <button type="submit">Update Employee</button>
+
+    </form>
+
+
+    <form action="/employee/save"  th:object="${aEmployeee}"
+          method="post">
+
+        <table border="0" cellpadding="10">
+            <tr>
+                <td>ID:</td>
+                <td>
+                    <input type="text" th:field="*{id}" readonly="readonly" />
+                </td>
+            </tr>
+            <tr>
+                <td>Firstname:</td>
+                <td>
+                    <input type="text" th:field="*{firstname}" />
+                </td>
+            </tr>
+            <tr>
+                <td>Lastname:</td>
+                <td><input type="text" th:field="*{lastname}" /></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="text" th:field="*{email}" /></td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><button type="submit">Save</button> </td>
+            </tr>
+        </table>
+    </form>
+
+
+</div>
+
+</body>
+
+</html>

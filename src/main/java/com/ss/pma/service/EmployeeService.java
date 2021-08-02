@@ -21,7 +21,7 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public List<EmployeeProjectDTO> getEmployeeProjects(){
+    public List<Project> getEmployeeProjects(){
         return employeeRepository.employeeProjects();
     }
 

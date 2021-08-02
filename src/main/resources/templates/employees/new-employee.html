@@ -6,13 +6,36 @@
 
 <body>
 <nav th:replace="layouts :: navbar"></nav>
-<div class="container">
+<div class="container" align="center">
     <form action="/employee/save" th:object="${employee}" method="POST">
+        <table>
+            <tr>
+                <td>Firstname:</td>
+                <td>
+                    <input type="text" placeholder="firstname" th:field="${employee.firstname}">
+                </td>
+            </tr>
+            <tr>
+                <td>Lastname:</td>
+                <td>
+                    <input type="text" placeholder="lastname" th:field="${employee.lastname}">
+                </td>
+            </tr>
 
-        <input type="text" placeholder="firstname" th:field="${employee.firstname}">
-        <input type="text" placeholder="lastname" th:field="${employee.lastname}">
-        <input type="email" placeholder="email" th:field="${employee.email}">
-        <button type="submit">Enter Employee</button>
+            <tr>
+                <td>Email:</td>
+                <td>
+                    <input type="text" placeholder="email" th:field="${employee.email}">
+                </td>
+            </tr>
+
+            <tr>
+                <button type="submit">Enter Employee</button>
+            </tr>
+        </table>
+
+
+
 
     </form>
 </div>
