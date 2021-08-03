@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
@@ -5,37 +6,41 @@
 <head th:replace="layouts :: header"></head>
 
 <body>
+
 <nav th:replace="layouts :: navbar"></nav>
-<div class="container" align="center">
-    <form action="/employee/save" th:object="${employee}" method="POST">
-        <table>
-            <tr>
-                <td>Firstname:</td>
-                <td>
-                    <input type="text" placeholder="firstname" th:field="${employee.firstname}">
-                </td>
-            </tr>
-            <tr>
-                <td>Lastname:</td>
-                <td>
-                    <input type="text" placeholder="lastname" th:field="${employee.lastname}">
-                </td>
-            </tr>
 
-            <tr>
-                <td>Email:</td>
-                <td>
-                    <input type="text" placeholder="email" th:field="${employee.email}">
-                </td>
-            </tr>
-
-            <tr>
-                <button type="submit">Enter Employee</button>
-            </tr>
-        </table>
+<br>
+<div class="container">
 
 
+    <form th:action="@{/employee/save}" th:object="${employee}" method="POST">
 
+
+        <!--  This will be used to bind to the employee that was clicked on (USED FOR UPDATES)-->
+        <input type="hidden" th:field="${employee.id}"/>
+
+        <div class="form-group row">
+            <input type="text" placeholder="First Name" th:field="${employee.firstname}">
+            <span style="color:red" th:if="${#fields.hasErrors('firstname')}"
+                  th:errors="${employee.firstname}">
+			</span>
+        </div>
+
+        <div class="form-group row">
+            <input type="text" placeholder="Last Name" th:field="${employee.lastname}">
+            <span style="color:red" th:if="${#fields.hasErrors('lastname')}"
+                  th:errors="${employee.lastname}">
+			</span>
+        </div>
+
+        <div class="form-group row">
+            <input type="text" placeholder="Email Address" th:field="${employee.email}">
+            <span style="color:red" th:if="${#fields.hasErrors('email')}"
+                  th:errors="${employee.email}">
+			</span>
+        </div>
+
+        <button class="btn btn-info col-2" type="submit">Enter Employee</button>
 
     </form>
 </div>

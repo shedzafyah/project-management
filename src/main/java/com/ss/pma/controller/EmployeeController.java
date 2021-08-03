@@ -49,12 +49,9 @@ public class EmployeeController {
 
    @GetMapping("/update")
    public String displayEmployeeUpdateForm(@RequestParam("id") Long theId, Model model) {
-
        Employee employees = employeeService.findById(theId);
-
        model.addAttribute("employee", employees);
-
-       return "employees/update-employee.html";
+       return "employees/new-employee.html";
    }
 
 }
